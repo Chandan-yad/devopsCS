@@ -1,2 +1,0 @@
-# devopsCS
-# devopsCS
