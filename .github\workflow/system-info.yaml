@@ -1,0 +1,34 @@
+name: System Info
+on: push
+
+jobs:
+  system-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Print OS and Kernal
+        run: |
+          echo "OS: $(lsb_release -d | cut -f2)"
+          echo "Kernel: $(uname -r)"
+
+      - name: Disk Space
+        run: df -h /
+
+      - name: Current Date and Time
+        run: date
+
+      - name: Install tree
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tree
+
+      - name: Display Home Directory
+        run: tree  -L 2 "$HOME"
+
+report-status:
+    runs-on: ubuntu-latest
+    needs: system-info
+
+    steps:
+      - name: Report Complete
+        run: echo "System report completed successfully."
